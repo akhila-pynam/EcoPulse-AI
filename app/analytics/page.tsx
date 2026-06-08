@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Navbar from "@/components/layout/Navbar";
+import { Activity } from "@/types/activity";
 import {
   LineChart,
   Line,
@@ -7,192 +10,122 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  AreaChart,
-  Area,
 } from "recharts";
 
-const monthlyData = [
-  { month: "Jan", emission: 120 },
-  { month: "Feb", emission: 150 },
-  { month: "Mar", emission: 180 },
-  { month: "Apr", emission: 130 },
-  { month: "May", emission: 100 },
-  { month: "Jun", emission: 90 },
-];
-
-const categoryData = [
-  { name: "Transport", value: 45 },
-  { name: "Electricity", value: 35 },
-  { name: "Food", value: 20 },
-];
-
-const trendData = [
-  { week: "W1", score: 55 },
-  { week: "W2", score: 65 },
-  { week: "W3", score: 78 },
-  { week: "W4", score: 90 },
-];
-
-const COLORS = [
-  "#22c55e",
-  "#16a34a",
-  "#15803d",
-];
-
 export default function AnalyticsPage() {
+  const [activities, setActivities] = useState<Activity[]>([]);
+
+  useEffect(() => {
+    const saved =
+      localStorage.getItem("eco_activities");
+
+    if (saved) {
+      setActivities(JSON.parse(saved));
+    }
+  }, []);
+
+  const totalEmissions = activities.reduce(
+    (sum, activity) =>
+      sum + activity.carbonEmission,
+    0
+  );
+
+  const averageEmission =
+    activities.length > 0
+      ? totalEmissions / activities.length
+      : 0;
+
+  const chartData = activities
+    .slice()
+    .reverse()
+    .map((activity) => ({
+      date: activity.date,
+      emission: Number(
+        activity.carbonEmission.toFixed(2)
+      ),
+    }));
+
   return (
-    <main className="min-h-screen bg-black p-8 text-white">
-      <div className="mx-auto max-w-7xl">
-        <h1 className="text-4xl font-bold">
-          Analytics Dashboard
-        </h1>
+    <>
+      <Navbar />
 
-        <p className="mt-2 text-zinc-400">
-          Real-time sustainability insights and carbon trends.
-        </p>
+      <main className="min-h-screen bg-black p-8 text-white">
+        <div className="mx-auto max-w-7xl">
+          <h1 className="text-4xl font-bold">
+            Analytics Dashboard
+          </h1>
 
-        {/* KPI Cards */}
+          <p className="mt-2 text-zinc-400">
+            Insights based on your real tracked
+            activities.
+          </p>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-4">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
-            <h3 className="text-zinc-400">
-              Total Emissions
-            </h3>
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+              <h3 className="text-zinc-400">
+                Total Activities
+              </h3>
 
-            <p className="mt-2 text-3xl font-bold text-green-500">
-              770 kg
-            </p>
-          </div>
+              <p className="mt-2 text-4xl font-bold text-green-500">
+                {activities.length}
+              </p>
+            </div>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
-            <h3 className="text-zinc-400">
-              Eco Score
-            </h3>
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+              <h3 className="text-zinc-400">
+                Total Emissions
+              </h3>
 
-            <p className="mt-2 text-3xl font-bold text-green-500">
-              90
-            </p>
-          </div>
+              <p className="mt-2 text-4xl font-bold text-green-500">
+                {totalEmissions.toFixed(2)} kg
+              </p>
+            </div>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
-            <h3 className="text-zinc-400">
-              Best Month
-            </h3>
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+              <h3 className="text-zinc-400">
+                Average Emissions
+              </h3>
 
-            <p className="mt-2 text-3xl font-bold">
-              June
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
-            <h3 className="text-zinc-400">
-              Reduction
-            </h3>
-
-            <p className="mt-2 text-3xl font-bold text-green-500">
-              -25%
-            </p>
-          </div>
-        </div>
-
-        {/* Charts */}
-
-        <div className="mt-8 grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
-            <h2 className="mb-6 text-xl font-bold">
-              Monthly Emissions
-            </h2>
-
-            <div className="h-80">
-              <ResponsiveContainer
-                width="100%"
-                height="100%"
-              >
-                <LineChart data={monthlyData}>
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Line
-                    type="monotone"
-                    dataKey="emission"
-                    stroke="#22c55e"
-                    strokeWidth={3}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+              <p className="mt-2 text-4xl font-bold text-green-500">
+                {averageEmission.toFixed(2)} kg
+              </p>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+          <div className="mt-8 rounded-xl border border-zinc-800 bg-zinc-900 p-6">
             <h2 className="mb-6 text-xl font-bold">
-              Emission Sources
+              Emission Trend
             </h2>
 
-            <div className="h-80">
-              <ResponsiveContainer
-                width="100%"
-                height="100%"
-              >
-                <PieChart>
-                  <Pie
-                    data={categoryData}
-                    dataKey="value"
-                    outerRadius={120}
-                  >
-                    {categoryData.map(
-                      (_, index) => (
-                        <Cell
-                          key={index}
-                          fill={
-                            COLORS[
-                              index %
-                                COLORS.length
-                            ]
-                          }
-                        />
-                      )
-                    )}
-                  </Pie>
+            {activities.length > 0 ? (
+              <div className="h-96">
+                <ResponsiveContainer
+                  width="100%"
+                  height="100%"
+                >
+                  <LineChart data={chartData}>
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <Tooltip />
 
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
+                    <Line
+                      type="monotone"
+                      dataKey="emission"
+                      stroke="#22c55e"
+                      strokeWidth={3}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            ) : (
+              <p className="text-zinc-400">
+                No activity data found.
+                Add activities first.
+              </p>
+            )}
           </div>
         </div>
-
-        {/* Eco Trend */}
-
-        <div className="mt-8 rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
-          <h2 className="mb-6 text-xl font-bold">
-            Eco Score Trend
-          </h2>
-
-          <div className="h-80">
-            <ResponsiveContainer
-              width="100%"
-              height="100%"
-            >
-              <AreaChart data={trendData}>
-                <XAxis dataKey="week" />
-                <YAxis />
-                <Tooltip />
-
-                <Area
-                  type="monotone"
-                  dataKey="score"
-                  stroke="#22c55e"
-                  fill="#22c55e"
-                  fillOpacity={0.2}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
