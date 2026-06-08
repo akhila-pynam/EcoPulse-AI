@@ -1,3 +1,7 @@
+"use client";
+
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
@@ -9,22 +13,34 @@ export default function Home() {
           </h1>
 
           <div className="hidden items-center gap-8 md:flex">
-            <a href="#features" className="text-zinc-300 hover:text-green-500">
+            <a
+              href="#features"
+              className="text-zinc-300 hover:text-green-500"
+            >
               Features
             </a>
 
-            <a href="#analytics" className="text-zinc-300 hover:text-green-500">
+            <a
+              href="#analytics"
+              className="text-zinc-300 hover:text-green-500"
+            >
               Analytics
             </a>
 
-            <a href="#about" className="text-zinc-300 hover:text-green-500">
+            <a
+              href="#about"
+              className="text-zinc-300 hover:text-green-500"
+            >
               About
             </a>
           </div>
 
-          <button className="rounded-lg bg-green-500 px-5 py-2 text-black font-semibold hover:bg-green-400">
+          <Link
+            href="/activities"
+            className="rounded-lg bg-green-500 px-5 py-2 font-semibold text-black hover:bg-green-400"
+          >
             Get Started
-          </button>
+          </Link>
         </div>
       </nav>
 
@@ -43,13 +59,19 @@ export default function Home() {
         </p>
 
         <div className="mt-10 flex justify-center gap-4">
-          <button className="rounded-xl bg-green-500 px-8 py-4 font-semibold text-black hover:bg-green-400">
+          <Link
+            href="/activities"
+            className="rounded-xl bg-green-500 px-8 py-4 font-semibold text-black hover:bg-green-400"
+          >
             Start Tracking
-          </button>
+          </Link>
 
-          <button className="rounded-xl border border-zinc-700 px-8 py-4 text-white hover:bg-zinc-900">
+          <a
+            href="#features"
+            className="rounded-xl border border-zinc-700 px-8 py-4 text-white hover:bg-zinc-900"
+          >
             Learn More
-          </button>
+          </a>
         </div>
       </section>
 
@@ -58,31 +80,31 @@ export default function Home() {
         <div className="grid gap-6 md:grid-cols-3">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 text-center">
             <h2 className="text-4xl font-bold text-green-500">
-              50K+
+              Track
             </h2>
 
             <p className="mt-2 text-zinc-400">
-              Activities Tracked
+              Carbon Activities
             </p>
           </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 text-center">
             <h2 className="text-4xl font-bold text-green-500">
-              120 Tons
+              Analyze
             </h2>
 
             <p className="mt-2 text-zinc-400">
-              CO₂ Reduced
+              Sustainability Data
             </p>
           </div>
 
           <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 text-center">
             <h2 className="text-4xl font-bold text-green-500">
-              10K+
+              Improve
             </h2>
 
             <p className="mt-2 text-zinc-400">
-              Active Users
+              Eco Habits
             </p>
           </div>
         </div>
@@ -98,38 +120,44 @@ export default function Home() {
         </h2>
 
         <div className="grid gap-8 md:grid-cols-3">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8">
+          <Link
+            href="/activities"
+            className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 transition hover:border-green-500"
+          >
             <h3 className="mb-3 text-xl font-semibold text-green-500">
               Carbon Tracking
             </h3>
 
             <p className="text-zinc-400">
-              Monitor transportation, electricity,
-              food and shopping emissions.
+              Monitor transportation and electricity emissions.
             </p>
-          </div>
+          </Link>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8">
+          <Link
+            href="/tips"
+            className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 transition hover:border-green-500"
+          >
             <h3 className="mb-3 text-xl font-semibold text-green-500">
-              AI Recommendations
+              Sustainability Tips
             </h3>
 
             <p className="text-zinc-400">
-              Receive personalized suggestions
-              to reduce your carbon footprint.
+              Discover practical ways to reduce your carbon footprint.
             </p>
-          </div>
+          </Link>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8">
+          <Link
+            href="/analytics"
+            className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 transition hover:border-green-500"
+          >
             <h3 className="mb-3 text-xl font-semibold text-green-500">
               Analytics Dashboard
             </h3>
 
             <p className="text-zinc-400">
-              Visualize trends and understand
-              your environmental impact.
+              Visualize trends and understand your environmental impact.
             </p>
-          </div>
+          </Link>
         </div>
       </section>
 
@@ -140,49 +168,61 @@ export default function Home() {
       >
         <div className="mx-auto max-w-7xl px-6">
           <h2 className="mb-12 text-center text-4xl font-bold">
-            Analytics Dashboard
+            Explore Your Sustainability Journey
           </h2>
 
           <div className="grid gap-6 md:grid-cols-4">
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+            <Link
+              href="/activities"
+              className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6"
+            >
               <h3 className="text-zinc-400">
-                Carbon Score
+                Activities
               </h3>
 
-              <p className="mt-2 text-3xl font-bold text-green-500">
-                87
+              <p className="mt-2 text-2xl font-bold text-green-500">
+                Track
               </p>
-            </div>
+            </Link>
 
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+            <Link
+              href="/analytics"
+              className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6"
+            >
               <h3 className="text-zinc-400">
-                Monthly Emissions
+                Analytics
               </h3>
 
-              <p className="mt-2 text-3xl font-bold">
-                245kg
+              <p className="mt-2 text-2xl font-bold text-green-500">
+                Analyze
               </p>
-            </div>
+            </Link>
 
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+            <Link
+              href="/goals"
+              className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6"
+            >
               <h3 className="text-zinc-400">
-                Goal Progress
+                Goals
               </h3>
 
-              <p className="mt-2 text-3xl font-bold">
-                72%
+              <p className="mt-2 text-2xl font-bold text-green-500">
+                Improve
               </p>
-            </div>
+            </Link>
 
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+            <Link
+              href="/tips"
+              className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6"
+            >
               <h3 className="text-zinc-400">
-                Green Streak
+                Tips
               </h3>
 
-              <p className="mt-2 text-3xl font-bold">
-                14 Days
+              <p className="mt-2 text-2xl font-bold text-green-500">
+                Learn
               </p>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -194,13 +234,15 @@ export default function Home() {
         </h2>
 
         <p className="mx-auto mt-4 max-w-2xl text-lg text-zinc-400">
-          Join thousands of users reducing their
-          carbon footprint every day.
+          Start tracking your sustainability journey today.
         </p>
 
-        <button className="mt-8 rounded-xl bg-green-500 px-8 py-4 font-semibold text-black hover:bg-green-400">
+        <Link
+          href="/activities"
+          className="mt-8 inline-block rounded-xl bg-green-500 px-8 py-4 font-semibold text-black hover:bg-green-400"
+        >
           Get Started Free
-        </button>
+        </Link>
       </section>
 
       {/* Footer */}
