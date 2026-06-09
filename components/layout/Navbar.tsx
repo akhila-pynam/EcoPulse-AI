@@ -1,5 +1,3 @@
-// components/layout/Navbar.tsx
-
 import Link from "next/link";
 
 export default function Navbar() {
@@ -13,12 +11,19 @@ export default function Navbar() {
           EcoPulse AI
         </Link>
 
-        <div className="flex gap-6 text-zinc-300">
+        <div className="flex flex-wrap gap-6 text-zinc-300">
           <Link href="/">Home</Link>
           <Link href="/activities">Activities</Link>
           <Link href="/goals">Goals</Link>
           <Link href="/analytics">Analytics</Link>
           <Link href="/tips">Tips</Link>
+
+          <Link
+            href="/chat"
+            className="font-semibold text-green-500 hover:text-green-400"
+          >
+            AI Assistant
+          </Link>
         </div>
       </div>
     </nav>
