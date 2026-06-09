@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import FloatingLeaves from "@/components/FloatingLeaves";
+import Earth from "@/components/Earth";
 
 export default function Home() {
   return (
@@ -91,33 +91,18 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Globe */}
+          {/* 3D Earth */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              rotate: 360,
-            }}
-            transition={{
-              rotate: {
-                repeat: Infinity,
-                duration: 60,
-                ease: "linear",
-              },
-              duration: 1,
-            }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
             className="flex justify-center"
           >
-            <div className="relative h-[350px] w-[350px] overflow-hidden rounded-full border-4 border-green-500 shadow-[0_0_60px_rgba(34,197,94,0.6)]">
-              <Image
-                src="/globe.png"
-                alt="Earth"
-                fill
-                className="object-cover"
-              />
+            <div className="rounded-full border-4 border-green-500 shadow-[0_0_80px_rgba(34,197,94,0.7)]">
+              <Earth />
             </div>
           </motion.div>
+
         </div>
       </section>
 
