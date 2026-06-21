@@ -8,6 +8,7 @@ import { calculateEcoScore } from "@/lib/score/ecoScore";
 import { getBadges } from "@/lib/badges/badges";
 import { generateReport } from "@/lib/reports/generateReport";
 import { Activity } from "@/types/activity";
+import { validateActivityInput } from "@/lib/validation/activityValidation";
 
 export default function ActivitiesPage() {
   const [result, setResult] = useState<number | null>(null);
@@ -41,60 +42,73 @@ export default function ActivitiesPage() {
   }, [activities]);
 
   const handleSubmit = (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
+  e: React.FormEvent<HTMLFormElement>
+) => {
+  e.preventDefault();
 
-    const form = new FormData(e.currentTarget);
+  const form = new FormData(e.currentTarget);
 
-    const transport = Number(
-      form.get("transport")
-    );
+  const transport = Number(
+    form.get("transport")
+  );
 
-    const electricity = Number(
-      form.get("electricity")
-    );
+  const electricity = Number(
+    form.get("electricity")
+  );
 
-    const carbon = calculateCarbon(
+  if (
+    !validateActivityInput(
       transport,
       electricity
+    )
+  ) {
+    alert(
+      "Please enter valid positive values."
     );
 
-    const ecoScore =
-      calculateEcoScore(carbon);
+    return;
+  }
 
-    setResult(carbon);
+  const carbon = calculateCarbon(
+    transport,
+    electricity
+  );
 
-    setEcoData(ecoScore);
+  const ecoScore =
+    calculateEcoScore(carbon);
 
-    setRecommendations(
-      getRecommendations(
-        transport,
-        electricity
-      )
-    );
+  setResult(carbon);
 
-    setBadges(
-      getBadges(
-        activities.length + 1,
-        ecoScore.score
-      )
-    );
+  setEcoData(ecoScore);
 
-    const newActivity: Activity = {
+  setRecommendations(
+    getRecommendations(
       transport,
-      electricity,
-      carbonEmission: carbon,
-      date: new Date().toLocaleDateString(),
-    };
+      electricity
+    )
+  );
 
-    setActivities((prev) => [
-      newActivity,
-      ...prev,
-    ]);
+  setBadges(
+    getBadges(
+      activities.length + 1,
+      ecoScore.score
+    )
+  );
 
-    e.currentTarget.reset();
+  const newActivity: Activity = {
+    transport,
+    electricity,
+    carbonEmission: carbon,
+    date: new Date().toLocaleDateString(),
   };
+
+  setActivities((prev) => [
+    newActivity,
+    ...prev,
+  ]);
+
+  e.currentTarget.reset();
+};
 
   return (
     <>
