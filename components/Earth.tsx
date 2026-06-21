@@ -9,14 +9,16 @@ import {
 import * as THREE from "three";
 
 function Globe() {
-  const earthTexture = useLoader(
+  const globeTexture = useLoader(
     THREE.TextureLoader,
-    "/earth.jpg"
+    "/globe.png"
   );
 
   return (
     <Sphere args={[2.2, 100, 100]}>
-      <meshStandardMaterial map={earthTexture} />
+      <meshStandardMaterial
+        map={globeTexture}
+      />
     </Sphere>
   );
 }
@@ -25,6 +27,7 @@ export default function Earth() {
   return (
     <div className="h-[500px] w-[500px]">
       <Canvas camera={{ position: [0, 0, 6] }}>
+        {/* Stars */}
         <Stars
           radius={100}
           depth={50}
@@ -33,6 +36,7 @@ export default function Earth() {
           fade
         />
 
+        {/* Lights */}
         <ambientLight intensity={2} />
 
         <directionalLight
@@ -46,8 +50,10 @@ export default function Earth() {
           color="#22c55e"
         />
 
+        {/* Earth */}
         <Globe />
 
+        {/* Rotation */}
         <OrbitControls
           autoRotate
           autoRotateSpeed={1}
