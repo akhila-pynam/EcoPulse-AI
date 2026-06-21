@@ -16,8 +16,7 @@ export default function AnalyticsPage() {
   const [activities, setActivities] = useState<Activity[]>([]);
 
   useEffect(() => {
-    const saved =
-      localStorage.getItem("eco_activities");
+    const saved = localStorage.getItem("eco_activities");
 
     if (saved) {
       setActivities(JSON.parse(saved));
@@ -25,8 +24,7 @@ export default function AnalyticsPage() {
   }, []);
 
   const totalEmissions = activities.reduce(
-    (sum, activity) =>
-      sum + activity.carbonEmission,
+    (sum, activity) => sum + activity.carbonEmission,
     0
   );
 
@@ -87,7 +85,10 @@ export default function AnalyticsPage() {
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-              <h3 className="text-zinc-400">
+              <h3
+                className="text-zinc-400"
+                aria-label="Total Activities"
+              >
                 Total Activities
               </h3>
 
@@ -97,7 +98,10 @@ export default function AnalyticsPage() {
             </div>
 
             <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-              <h3 className="text-zinc-400">
+              <h3
+                className="text-zinc-400"
+                aria-label="Total Emissions"
+              >
                 Total Emissions
               </h3>
 
@@ -107,7 +111,10 @@ export default function AnalyticsPage() {
             </div>
 
             <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-              <h3 className="text-zinc-400">
+              <h3
+                className="text-zinc-400"
+                aria-label="Average Emissions"
+              >
                 Average Emissions
               </h3>
 
@@ -119,7 +126,10 @@ export default function AnalyticsPage() {
 
           <div className="mt-6 grid gap-6 md:grid-cols-3">
             <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-              <h3 className="text-zinc-400">
+              <h3
+                className="text-zinc-400"
+                aria-label="Highest Emission"
+              >
                 Highest Emission
               </h3>
 
@@ -129,7 +139,10 @@ export default function AnalyticsPage() {
             </div>
 
             <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-              <h3 className="text-zinc-400">
+              <h3
+                className="text-zinc-400"
+                aria-label="Lowest Emission"
+              >
                 Lowest Emission
               </h3>
 
@@ -139,7 +152,10 @@ export default function AnalyticsPage() {
             </div>
 
             <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-              <h3 className="text-zinc-400">
+              <h3
+                className="text-zinc-400"
+                aria-label="Estimated Annual Impact"
+              >
                 Estimated Annual Impact
               </h3>
 
@@ -160,7 +176,10 @@ export default function AnalyticsPage() {
                   width="100%"
                   height="100%"
                 >
-                  <LineChart data={chartData}>
+                  <LineChart
+                    data={chartData}
+                    accessibilityLayer
+                  >
                     <XAxis dataKey="date" />
                     <YAxis />
                     <Tooltip />
