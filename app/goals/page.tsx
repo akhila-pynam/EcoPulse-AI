@@ -5,15 +5,37 @@ import Navbar from "@/components/layout/Navbar";
 
 export default function GoalsPage() {
   const [goal, setGoal] = useState(500);
-  const [currentEmission] = useState(320);
+  const [currentEmission, setCurrentEmission] =
+    useState(0);
 
   useEffect(() => {
-    const savedGoal = localStorage.getItem(
-      "eco_goal"
-    );
+    const savedGoal =
+      localStorage.getItem("eco_goal");
 
     if (savedGoal) {
       setGoal(Number(savedGoal));
+    }
+
+    const savedActivities =
+      localStorage.getItem("eco_activities");
+
+    if (savedActivities) {
+      const activities = JSON.parse(
+        savedActivities
+      );
+
+      const totalEmission = activities.reduce(
+        (
+          sum: number,
+          activity: {
+            carbonEmission: number;
+          }
+        ) =>
+          sum + activity.carbonEmission,
+        0
+      );
+
+      setCurrentEmission(totalEmission);
     }
   }, []);
 
@@ -36,22 +58,32 @@ export default function GoalsPage() {
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-black p-8 text-white">
+      <main
+        role="main"
+        className="min-h-screen bg-black p-8 text-white"
+      >
         <div className="mx-auto max-w-4xl">
           <h1 className="text-4xl font-bold">
             Sustainability Goals
           </h1>
 
           <p className="mt-2 text-zinc-400">
-            Set your monthly carbon reduction target.
+            Set your monthly carbon reduction target
+            and track progress based on your real
+            carbon footprint data.
           </p>
 
           <div className="mt-8 rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
-            <label className="mb-3 block text-lg font-semibold">
+            <label
+              htmlFor="goal"
+              className="mb-3 block text-lg font-semibold"
+            >
               Monthly CO₂ Goal (kg)
             </label>
 
             <input
+              id="goal"
+              aria-label="Monthly Carbon Emission Goal"
               type="number"
               value={goal}
               onChange={(e) =>
@@ -78,7 +110,7 @@ export default function GoalsPage() {
               </h3>
 
               <p className="mt-2 text-3xl font-bold">
-                {currentEmission} kg
+                {currentEmission.toFixed(2)} kg
               </p>
             </div>
 
@@ -109,6 +141,12 @@ export default function GoalsPage() {
 
             <p className="mt-4 text-green-500">
               {safeProgress.toFixed(0)}% Goal Achieved
+            </p>
+
+            <p className="mt-2 text-zinc-400">
+              Keep reducing emissions through
+              sustainable transportation and
+              efficient electricity usage.
             </p>
           </div>
         </div>
