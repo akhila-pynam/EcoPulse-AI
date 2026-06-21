@@ -45,7 +45,10 @@ export default function ChatPage() {
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-black p-8 text-white">
+      <main
+        role="main"
+        className="min-h-screen bg-black p-8 text-white"
+      >
         <div className="mx-auto max-w-5xl">
           <h1 className="text-5xl font-bold text-green-500">
             EcoPulse AI Assistant
@@ -58,7 +61,11 @@ export default function ChatPage() {
           </p>
 
           {/* Chat Area */}
-          <div className="mt-8 h-[650px] overflow-y-auto rounded-3xl border border-zinc-800 bg-zinc-900 p-6">
+          <div
+            role="log"
+            aria-live="polite"
+            className="mt-8 h-[650px] overflow-y-auto rounded-3xl border border-zinc-800 bg-zinc-900 p-6"
+          >
             {messages.map((msg, index) => (
               <div
                 key={index}
@@ -84,6 +91,7 @@ export default function ChatPage() {
           {/* Input */}
           <div className="mt-6 flex items-center gap-4">
             <input
+              aria-label="Ask EcoPulse AI a question"
               type="text"
               value={message}
               onChange={(e) =>
@@ -99,6 +107,7 @@ export default function ChatPage() {
             />
 
             <button
+              aria-label="Send message"
               onClick={handleSend}
               className="rounded-2xl bg-green-500 px-8 py-5 font-semibold text-black transition hover:bg-green-400"
             >

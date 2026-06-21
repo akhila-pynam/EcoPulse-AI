@@ -16,7 +16,23 @@ export function getBadges(
     badges.push("♻️ Carbon Tracker");
   }
 
-  if (ecoScore >= 90) {
+  if (totalActivities >= 20) {
+    badges.push("🌿 Sustainability Explorer");
+  }
+
+  if (totalActivities >= 30) {
+    badges.push("🌳 Green Guardian");
+  }
+
+  if (ecoScore >= 70) {
+    badges.push("🌎 Climate Protector");
+  }
+
+  if (ecoScore >= 85) {
+    badges.push("⭐ Sustainability Star");
+  }
+
+  if (ecoScore >= 95) {
     badges.push("🏆 Eco Champion");
   }
 

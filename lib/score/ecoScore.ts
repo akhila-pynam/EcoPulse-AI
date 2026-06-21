@@ -1,41 +1,57 @@
 export function calculateEcoScore(
   carbonEmission: number
 ) {
-  if (carbonEmission <= 25) {
+  const score = Math.max(
+    0,
+    Math.min(
+      100,
+      Math.round(100 - carbonEmission / 2)
+    )
+  );
+
+  if (score >= 90) {
     return {
-      score: 100,
-      level: "Eco Champion",
+      score,
+      level: "Eco Champion 🌎",
       rank: "A+",
     };
   }
 
-  if (carbonEmission <= 50) {
+  if (score >= 80) {
     return {
-      score: 90,
-      level: "Green Hero",
+      score,
+      level: "Green Hero 🌱",
       rank: "A",
     };
   }
 
-  if (carbonEmission <= 100) {
+  if (score >= 70) {
     return {
-      score: 75,
-      level: "Eco Friendly",
+      score,
+      level: "Eco Friendly 🍃",
+      rank: "B+",
+    };
+  }
+
+  if (score >= 60) {
+    return {
+      score,
+      level: "Sustainability Learner 🌿",
       rank: "B",
     };
   }
 
-  if (carbonEmission <= 200) {
+  if (score >= 40) {
     return {
-      score: 60,
-      level: "Needs Improvement",
+      score,
+      level: "Needs Improvement ⚠️",
       rank: "C",
     };
   }
 
   return {
-    score: 40,
-    level: "High Emitter",
+    score,
+    level: "High Emitter 🚨",
     rank: "D",
   };
 }
